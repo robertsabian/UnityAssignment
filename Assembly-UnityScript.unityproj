@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{283B0837-B727-397B-12E6-14D4E0BE65E9}</ProjectGuid>
+	<ProjectGuid>{539611F2-479F-882F-13A1-FCFD939DF892}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -48,6 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\CubeBehaviour.js" />
      <Compile Include="Assets\Scripts\ShipBehaviour.js" />
+     <Compile Include="Assets\Scripts\SphereBehaviour.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

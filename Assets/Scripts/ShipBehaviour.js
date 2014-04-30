@@ -1,20 +1,23 @@
 ﻿public var moveSpeed : float = 10f;
 public var keyPressed : float = 0f;
-private var releaseTimer : float = 0f;
-private var released : boolean = false;
 public var barrel : Transform;
 
 private var prefabTimer : float = 0f;
 
-public var NormalPrefab : Rigidbody;
+public var AmmoPrefab : Rigidbody;
 public var ShieldPrefab : Rigidbody;
 public var HealthPrefab : Rigidbody;
 public var DeathPrefab : Rigidbody;
+public var EnemyPrefab : Rigidbody;
 
+private var Health : float = 10f;
+private var Shield : float = 10f;
+private var Ammo : float = 100f;
 
 function Start ()
 {
-	yield CreatePrefabs();
+	yield CreateVortexPrefabs();
+	yield CreateEnemyPrefabs();
 }
 
 function Update ()
@@ -36,10 +39,16 @@ function Move()
        // transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
         
         if(Input.GetKey(KeyCode.LeftArrow))
-        transform.Translate(Vector3.left * (moveSpeed/2) * Time.deltaTime);
+        transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);
         
         if(Input.GetKey(KeyCode.RightArrow))
-        transform.Translate(Vector3.right * (moveSpeed/2) * Time.deltaTime);
+        transform.Translate(Vector3.right * moveSpeed * Time.deltaTime);
+        
+        if(Input.GetKey(KeyCode.DownArrow))
+        transform.Translate(Vector3.down * moveSpeed * Time.deltaTime);
+        
+        if(Input.GetKey(KeyCode.UpArrow))
+        transform.Translate(Vector3.up * moveSpeed * Time.deltaTime);
 }
 
 function Jump(){
@@ -55,40 +64,99 @@ function Jump(){
 	    }    
 }
 
-function CreatePrefabs(){
+function CreateVortexPrefabs(){
 	while(true)
 	{
-     var number = Random.Range(1,91);
+     var number = Random.Range(1,81);
 	 //var positionCreate = barrel.position.z + 10f;
 	 var positionToCreate:Vector3;
 	 
+	 var maxX = Random.Range(-30,30);
+	 var maxY = Random.Range(-20,20);
+	 
 	 positionToCreate = transform.position;
 	 
-	 positionToCreate.z+=10f;
-	 positionToCreate.y = 9.465888f;
+	 positionToCreate.z+=40f;
+	 positionToCreate.y = maxY;
+	 positionToCreate.x = maxX;
 	 
 	 
-	if(number <= 60)//normal prefab
+	if(number <= 60)//death prefab
 	{
 		var platformInstance1 : Rigidbody;
-	    platformInstance1 = Instantiate(NormalPrefab, positionToCreate, transform.rotation);
+	    platformInstance1 = Instantiate(DeathPrefab, positionToCreate, transform.rotation);
 	    
-	}else if((number >= 61) && (number <= 70))//shield prefab
+	}else if((number >= 66) && (number <= 68))//health prefab
 	{
 		var platformInstance2 : Rigidbody;
-	    platformInstance2 = Instantiate(ShieldPrefab, positionToCreate, transform.rotation);
+	    platformInstance2 = Instantiate(HealthPrefab, positionToCreate, transform.rotation);
 	    	
-	}else if((number >= 71) && (number <= 80))//health prefab
+	}else if((number >= 68) && (number <= 70))//shield prefab
 	{
 		var platformInstance3 : Rigidbody;
-	    platformInstance3 = Instantiate(HealthPrefab, positionToCreate, transform.rotation);
+	    platformInstance3 = Instantiate(ShieldPrefab, positionToCreate, transform.rotation);
 	    
-	}else if((number >= 81) && (number <= 90))//death prefab
+	}else if((number >= 71) && (number <= 80))//shield prefab
 	{
 		var platformInstance4 : Rigidbody;
-	    platformInstance4 = Instantiate(DeathPrefab, positionToCreate, transform.rotation);
+	    platformInstance4 = Instantiate(AmmoPrefab, positionToCreate, transform.rotation);
 	    
 	}
-	yield WaitForSeconds(1.0);
+	yield WaitForSeconds(0.5);
 	}
+}
+
+function CreateEnemyPrefabs(){
+	while(true)
+	{
+	 //var positionCreate = barrel.position.z + 10f;
+	 var positionToCreate:Vector3;
+	 
+	 var maxX = Random.Range(-30,30);
+	 var maxY = Random.Range(-20,20);
+	 
+	 positionToCreate = transform.position;
+	 
+	 positionToCreate.z = 80f;
+	 positionToCreate.y = maxY;
+	 positionToCreate.x = maxX;
+
+	 var platformInstance4 : Rigidbody;
+	 platformInstance4 = Instantiate(EnemyPrefab, positionToCreate, transform.rotation);	    
+	
+	yield WaitForSeconds(0.2);
+	}
+}
+
+function OnTriggerEnter(other: Collider)
+{
+    if (other.tag == "DeathCube")
+    {
+       Health = 0f;
+       
+    }else if (other.tag == "HealthCube")
+    {
+    	if(Health < 10f)
+       	Health = Health+0.5f;
+       	
+    }else if (other.tag == "ShieldCube")
+    {
+        if(Shield < 10f)
+       	Shield = Shield+1f;
+       	
+    }else if (other.tag == "AmmoCube")
+    {
+        if(Ammo < 100f)
+       	Ammo = Ammo+15f;
+       	
+    }else if (other.tag == "Enemy")
+    {
+        Health = Health+0.5f;
+    }
+}
+
+function OnGUI(){
+    GUI.Label(Rect(10,10,Screen.width,Screen.height),"Health:" + Health + "");
+    GUI.Label(Rect(10,30,Screen.width,Screen.height),"Shield:" + Shield + "");
+    GUI.Label(Rect(10,50,Screen.width,Screen.height),"Ammo:" + Ammo + "");
 }
