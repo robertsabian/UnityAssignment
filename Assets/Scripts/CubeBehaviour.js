@@ -7,5 +7,11 @@ function Start () {
 }
 
 function Update () {
-transform.Translate(Vector3.back * moveSpeed * Time.deltaTime);
+	transform.Translate(Vector3.back * moveSpeed * Time.deltaTime);
+}
+
+
+function OnBecameInvisible()
+{
+	Destroy(this.gameObject);
 }

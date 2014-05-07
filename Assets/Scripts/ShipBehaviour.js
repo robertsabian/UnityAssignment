@@ -1,6 +1,5 @@
 ﻿public var moveSpeed : float = 10f;
 public var keyPressed : float = 0f;
-public var barrel : Transform;
 
 private var prefabTimer : float = 0f;
 
@@ -17,7 +16,7 @@ private var Ammo : float = 100f;
 function Start ()
 {
 	yield CreateVortexPrefabs();
-	yield CreateEnemyPrefabs();
+//	yield CreateEnemyPrefabs();
 }
 
 function Update ()
@@ -25,12 +24,15 @@ function Update ()
 	Move();
    	Jump();
    	
-   	//prefabTimer = prefabTimer + 1f;     	
-	//if( prefabTimer == 100f)
-	//{
-	//	CreatePrefabs();
-	//	prefabTimer = 0f;
-	//}
+   	AmmoCounter();
+   
+}
+
+function AmmoCounter()
+{
+	if (Input.GetMouseButtonDown(0)){
+		Ammo -= 1;
+	}
 }
 
 function Move()
@@ -102,37 +104,53 @@ function CreateVortexPrefabs(){
 	    platformInstance4 = Instantiate(AmmoPrefab, positionToCreate, transform.rotation);
 	    
 	}
+	
+	var positionToCreateEnemy:Vector3;
+	 
+	 var maxEX = Random.Range(-30,30);
+	 var maxEY = Random.Range(-20,20);
+	 
+	 positionToCreateEnemy = transform.position;
+	 
+	 positionToCreateEnemy.z = 80f;
+	 positionToCreateEnemy.y = maxEY;
+	 positionToCreateEnemy.x = maxEX;
+
+	 var platformInstance5 : Rigidbody;
+	 platformInstance5 = Instantiate(EnemyPrefab, positionToCreateEnemy, transform.rotation);
+	 
 	yield WaitForSeconds(0.5);
 	}
 }
 
-function CreateEnemyPrefabs(){
-	while(true)
-	{
-	 //var positionCreate = barrel.position.z + 10f;
-	 var positionToCreate:Vector3;
-	 
-	 var maxX = Random.Range(-30,30);
-	 var maxY = Random.Range(-20,20);
-	 
-	 positionToCreate = transform.position;
-	 
-	 positionToCreate.z = 80f;
-	 positionToCreate.y = maxY;
-	 positionToCreate.x = maxX;
-
-	 var platformInstance4 : Rigidbody;
-	 platformInstance4 = Instantiate(EnemyPrefab, positionToCreate, transform.rotation);	    
-	
-	yield WaitForSeconds(0.2);
-	}
-}
+//function CreateEnemyPrefabs(){
+//	while(true)
+//	{
+//	 //var positionCreate = barrel.position.z + 10f;
+//	 var positionToCreateEnemy:Vector3;
+//	 
+//	 var maxEX = Random.Range(-30,30);
+//	 var maxEY = Random.Range(-20,20);
+//	 
+//	 positionToCreateEnemy = transform.position;
+//	 
+//	 positionToCreateEnemy.z = 80f;
+//	 positionToCreateEnemy.y = maxEY;
+//	 positionToCreateEnemy.x = maxEX;
+//
+//	 var platformInstance4 : Rigidbody;
+//	 platformInstance4 = Instantiate(EnemyPrefab, positionToCreateEnemy, transform.rotation);	    
+//	
+//	yield WaitForSeconds(0.2);
+//	}
+//}
 
 function OnTriggerEnter(other: Collider)
 {
     if (other.tag == "DeathCube")
     {
        Health = 0f;
+       Shield = 0f;
        
     }else if (other.tag == "HealthCube")
     {

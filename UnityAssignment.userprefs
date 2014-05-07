@@ -2,9 +2,8 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ShipBehaviour.js">
     <Files>
-      <File FileName="Assets\Scripts\ShipBehaviour.js" Line="146" Column="9" />
-      <File FileName="Assets\Scripts\CubeBehaviour.js" Line="10" Column="57" />
-      <File FileName="Assets\Scripts\SphereBehaviour.js" Line="5" Column="20" />
+      <File FileName="Assets\Scripts\ShipBehaviour.js" Line="90" Column="6" />
+      <File FileName="Assets\Scripts\ShootController.js" Line="14" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
