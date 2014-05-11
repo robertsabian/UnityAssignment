@@ -48,6 +48,9 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\CubeBehaviour.js" />
      <Compile Include="Assets\Scripts\CursorController.js" />
+     <Compile Include="Assets\Scripts\PatternControler.js" />
+     <Compile Include="Assets\Scripts\ProjectileController.js" />
+     <Compile Include="Assets\Scripts\ScoreScript.js" />
      <Compile Include="Assets\Scripts\ShipBehaviour.js" />
      <Compile Include="Assets\Scripts\ShootController.js" />
      <Compile Include="Assets\Scripts\SphereBehaviour.js" />
