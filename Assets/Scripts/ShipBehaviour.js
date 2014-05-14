@@ -22,10 +22,14 @@ function Start ()
 function Update ()
 {
 	Move();
-   	Jump();
+   	Jump();   	
+   	AmmoCounter();   
    	
-   	AmmoCounter();
-   
+   	if(Health < 0f)
+   	{
+   		Health=0f;
+   		Application.LoadLevel("Menu");
+   	}
 }
 
 function AmmoCounter()
@@ -91,24 +95,31 @@ function CreateVortexPrefabs(){
 	{
 		var platformInstance1 : Rigidbody;
 	    platformInstance1 = Instantiate(DeathPrefab, positionToCreate, transform.rotation);
+	    Destroy(platformInstance1.gameObject,10.0f);
 	    
 	}else if((number >= 66) && (number <= 68))//health prefab
 	{
 		var platformInstance2 : Rigidbody;
 	    platformInstance2 = Instantiate(HealthPrefab, positionToCreate, transform.rotation);
+	    Destroy(platformInstance2.gameObject,10.0f);
 	    	
 	}else if((number >= 68) && (number <= 70))//shield prefab
 	{
 		var platformInstance3 : Rigidbody;
 	    platformInstance3 = Instantiate(ShieldPrefab, positionToCreate, transform.rotation);
+	    Destroy(platformInstance3.gameObject,10.0f);
 	    
 	}else if((number >= 71) && (number <= 80))//shield prefab
 	{
 		var platformInstance4 : Rigidbody;
 	    platformInstance4 = Instantiate(AmmoPrefab, positionToCreate, transform.rotation);
 	    
+	 Destroy(platformInstance4.gameObject,10.0f);
 	}
-	
+	 
+	 
+	 
+	 
 	var positionToCreateEnemy:Vector3;
 	 
 	 var maxEX = Random.Range(-30,30);
@@ -122,7 +133,7 @@ function CreateVortexPrefabs(){
 
 	 var platformInstance5 : Rigidbody;
 	 platformInstance5 = Instantiate(EnemyPrefab, positionToCreateEnemy, transform.rotation);
-	 
+	 Destroy(platformInstance5.gameObject,3.0f);
 	yield WaitForSeconds(0.5);
 	}
 }
@@ -173,7 +184,31 @@ function OnTriggerEnter(other: Collider)
        	
     }else if (other.tag == "Enemy")
     {
-        Health = Health+0.5f;
+        Health = Health - 1f;
+        Shield = Shield - 1.5f;
+                
+	   	if(Shield > 0)
+	   	{
+	   		Health = Health - 1f;
+        	Shield = Shield - 1.5f;
+	   	}else{
+	   		Health = Health - 2f;
+        	Shield = 0f;
+	   	}
+        
+    }else if (other.tag == "EnemyProjectile")
+    {
+        Health = Health - 0.2f;
+        Shield = Shield - 0.5f;
+        
+        if(Shield > 0)
+	   	{
+	   		Health = Health - 0.2f;
+        	Shield = Shield - 0.5f;
+	   	}else{
+	   		Health = Health - 0.5f;
+        	Shield = 0f;
+	   	}
     }
 }
 

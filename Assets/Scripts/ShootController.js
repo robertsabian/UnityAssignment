@@ -19,8 +19,7 @@ if (Input.GetMouseButtonDown(0))
 		
 		// Give the cloned object an initial velocity along the current 
 		// object's Z axis
-		//clone.velocity = transform.Translate(mousePos * 10);
-	
+		//clone.velocity = transform.Translate(mousePos * 10);	
         clone.AddForce(barrel.forward * 5000);
 	}
 }

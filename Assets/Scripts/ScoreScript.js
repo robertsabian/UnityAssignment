@@ -18,5 +18,5 @@ function UpdateScore(ammount:float)
 
 function OnGUI()
 {	
-	GUI.Label(Rect(720,10,Screen.width,Screen.height),"Score: " + score + "");
+	GUI.Label(Rect(620,10,Screen.width,Screen.height),"Score: " + score + "");
 }

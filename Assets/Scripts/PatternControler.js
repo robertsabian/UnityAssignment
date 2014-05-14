@@ -61,5 +61,5 @@ function GeneratePattern()
 
 function OnGUI()
 {	
-	GUI.Label(Rect(10,530,Screen.width,Screen.height),"1: " + arr[0] + "\n2: " + arr[1] + "\n3: " + arr[2] + "\n4: " + arr[3] + "");	
+	GUI.Label(Rect(10,450,Screen.width,Screen.height),"1: " + arr[0] + "\n2: " + arr[1] + "\n3: " + arr[2] + "\n4: " + arr[3] + "");	
 }

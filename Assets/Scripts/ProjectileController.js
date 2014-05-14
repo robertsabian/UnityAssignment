@@ -16,6 +16,6 @@ function OnTriggerEnter(other: Collider)
     {
           GameObject.Destroy(this.gameObject);
           GameObject.Destroy(other.gameObject);
-          scoreHandler.UpdateScore(10.0f);
+          //scoreHandler.UpdateScore(10.0f);
     }
 }

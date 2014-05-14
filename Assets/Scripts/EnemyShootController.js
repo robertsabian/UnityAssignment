@@ -2,6 +2,8 @@
 	
 var projectile : Rigidbody;
 var barrel : Transform;
+var ship : Transform;
+
 function Start () {
 }
 
@@ -10,8 +12,8 @@ function Update () {
 }
 
 function shoot()
-{
-		barrel.transform.LookAt(GameObject.Find("Main Camera").transform);
+{		//var pos = GameObject.Find("Main Camera").transform;
+		barrel.transform.LookAt(ship);
 		var clone : Rigidbody;
 		clone = Instantiate(projectile, barrel.position , barrel.rotation);
 			
@@ -19,6 +21,7 @@ function shoot()
 			// object's Z axis
 			//clone.velocity = transform.Translate(mousePos * 10);
 		clone.AddForce(barrel.forward * 5000);
+		Destroy(clone,3.0f);
 }
 
 function OnBecameInvisible()

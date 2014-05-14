@@ -50,8 +50,10 @@
      <Compile Include="Assets\Scripts\CubeBehaviour.js" />
      <Compile Include="Assets\Scripts\CursorController.js" />
      <Compile Include="Assets\Scripts\EnemyShootController.js" />
+     <Compile Include="Assets\Scripts\EnemyShooter.js" />
      <Compile Include="Assets\Scripts\PatternControler.js" />
      <Compile Include="Assets\Scripts\ProjectileController.js" />
+     <Compile Include="Assets\Scripts\RotationCotnroller.js" />
      <Compile Include="Assets\Scripts\ScoreScript.js" />
      <Compile Include="Assets\Scripts\ShipBehaviour.js" />
      <Compile Include="Assets\Scripts\ShootController.js" />
