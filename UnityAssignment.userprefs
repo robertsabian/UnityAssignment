@@ -1,17 +1,11 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ShipBehaviour.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\BossController.js">
     <Files>
-      <File FileName="Assets\Scripts\ProjectileController.js" Line="1" Column="15" />
-      <File FileName="Assets\Scripts\ScoreScript.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\CubeBehaviour.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ShootController.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\PatternControler.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ShipBehaviour.js" Line="26" Column="22" />
-      <File FileName="Assets\Scripts\CameraController.js" Line="12" Column="9" />
-      <File FileName="Assets\Scripts\CursorController.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\EnemyShootController.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\RotationCotnroller.js" Line="8" Column="46" />
+      <File FileName="Assets\Scripts\PatternControler.js" Line="40" Column="15" />
+      <File FileName="Assets\Scripts\EnemyShooter.js" Line="3" Column="1" />
+      <File FileName="Assets\Scripts\RotationCotnroller.js" Line="8" Column="2" />
+      <File FileName="Assets\Scripts\BossController.js" Line="15" Column="57" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

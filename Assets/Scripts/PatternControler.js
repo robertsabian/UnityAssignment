@@ -3,6 +3,10 @@ private var Health : float;
 private var Shield : float;
 private var Ammo : float;
 
+public var Boss : Rigidbody;
+
+var spawned = false;
+
 public var score : float = 0f;
 
 var arr = new Array ();
@@ -13,12 +17,30 @@ GeneratePattern();
 }
 
 function Update () {
-	if(counter == 4)
+	if(counter >= 4)
 	{
 		GeneratePattern();
 		counter = 0;
 		score += 100f;
 	}
+	
+	if((score%100 == 0) && (score != 0) && (spawned == false))
+	{
+		SpawnBoss();
+	}
+}
+
+function SpawnBoss()
+{	
+	var clone : Rigidbody;
+	var pos = transform.position;
+	var rot = transform.rotation;
+	
+	pos.z = 100f;
+	rot.x = 180f;
+	
+	clone = Instantiate(Boss, pos, rot);
+	spawned =true;
 }
 
 function OnTriggerEnter(other: Collider)
@@ -62,4 +84,5 @@ function GeneratePattern()
 function OnGUI()
 {	
 	GUI.Label(Rect(10,450,Screen.width,Screen.height),"1: " + arr[0] + "\n2: " + arr[1] + "\n3: " + arr[2] + "\n4: " + arr[3] + "");	
+	GUI.Label(Rect(500,10,Screen.width,Screen.height),"Score: " + score + "");	
 }

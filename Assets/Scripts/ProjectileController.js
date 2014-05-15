@@ -1,7 +1,5 @@
 ﻿#pragma strict
 
-public var scoreHandler : ScoreScript;
-
 function Start () {
 	GameObject.Destroy(this.gameObject, 1);
 }
@@ -16,6 +14,6 @@ function OnTriggerEnter(other: Collider)
     {
           GameObject.Destroy(this.gameObject);
           GameObject.Destroy(other.gameObject);
-          //scoreHandler.UpdateScore(10.0f);
+          GameObject.Find("human_warship").GetComponent(PatternControler).score += 10f;
     }
 }

@@ -11,7 +11,7 @@ public var EnemyPrefab : Rigidbody;
 
 private var Health : float = 10f;
 private var Shield : float = 10f;
-private var Ammo : float = 100f;
+public var Ammo : float = 100f;
 
 function Start ()
 {
@@ -25,17 +25,20 @@ function Update ()
    	Jump();   	
    	AmmoCounter();   
    	
-   	if(Health < 0f)
+   	if(Health <= 0f)
    	{
    		Health=0f;
-   		Application.LoadLevel("Menu");
+   		Application.LoadLevel("Exit");
    	}
 }
 
 function AmmoCounter()
 {
 	if (Input.GetMouseButtonDown(0)){
-		Ammo -= 1;
+		if(Ammo > 0)
+		{
+			Ammo -= 1;
+		}
 	}
 }
 
