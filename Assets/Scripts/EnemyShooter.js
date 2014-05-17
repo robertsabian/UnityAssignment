@@ -23,7 +23,7 @@ function shoot()
 			
 			// Give the cloned object an initial velocity along the current 
 			// object's Z axis
-			clone.AddForce(clone.transform.forward * -5000);
+		clone.AddForce(clone.transform.forward * -5000);
 		//clone.AddForce(barrel.forward * 5000);
 		Destroy(clone.gameObject,3.0f);
 		yield WaitForSeconds(1f);

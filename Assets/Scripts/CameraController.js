@@ -1,6 +1,6 @@
 ﻿#pragma strict
-function Start () {
 
+function Start () {
 }
 
 function Update () {
@@ -23,7 +23,5 @@ function Update () {
         
         if(Input.GetKey(KeyCode.DownArrow)){
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(15,0,0), Time.deltaTime * 3);		
-        }
-        
-	       
+        }	       
 }

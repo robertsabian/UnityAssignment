@@ -13,10 +13,14 @@ private var Health : float = 10f;
 private var Shield : float = 10f;
 public var Ammo : float = 100f;
 
+var cam1 : Camera;
+var cam2 : Camera;
+
 function Start ()
 {
 	yield CreateVortexPrefabs();
-//	yield CreateEnemyPrefabs();
+ 	cam1.enabled = true;
+    cam2.enabled = false;
 }
 
 function Update ()
@@ -30,6 +34,12 @@ function Update ()
    		Health=0f;
    		Application.LoadLevel("Exit");
    	}
+   	
+   	           	
+   	if (Input.GetKey(KeyCode.C)){
+		cam1.enabled = !cam1.enabled;
+		cam2.enabled = !cam2.enabled;
+	}
 }
 
 function AmmoCounter()
@@ -38,6 +48,12 @@ function AmmoCounter()
 		if(Ammo > 0)
 		{
 			Ammo -= 1;
+		}
+	}
+	if (Input.GetMouseButtonDown(1)){
+		if(Ammo > 0)
+		{
+			Ammo -= 10;
 		}
 	}
 }
@@ -212,6 +228,11 @@ function OnTriggerEnter(other: Collider)
 	   		Health = Health - 0.5f;
         	Shield = 0f;
 	   	}
+    }
+    else if (other.tag == "BossProjectile")
+    {
+        Health = 0f;
+       	Shield = 0f;
     }
 }
 

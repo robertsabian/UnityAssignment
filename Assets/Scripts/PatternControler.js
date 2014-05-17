@@ -1,10 +1,7 @@
 ﻿#pragma strict
-private var Health : float;
-private var Shield : float;
-private var Ammo : float;
-
 public var Boss : Rigidbody;
-
+public var clone : Rigidbody;
+var bosshit:int = 0;
 var spawned = false;
 
 public var score : float = 0f;
@@ -32,7 +29,7 @@ function Update () {
 
 function SpawnBoss()
 {	
-	var clone : Rigidbody;
+	spawned =true;
 	var pos = transform.position;
 	var rot = transform.rotation;
 	
@@ -40,7 +37,6 @@ function SpawnBoss()
 	rot.x = 180f;
 	
 	clone = Instantiate(Boss, pos, rot);
-	spawned =true;
 }
 
 function OnTriggerEnter(other: Collider)
@@ -63,7 +59,21 @@ function OnTriggerEnter(other: Collider)
        	{
        		counter++;
        	}
+    }else if (other.tag == "projectile2")
+    {	
+    	bosshit++;
+    	
+    	if(bosshit == 3){
+    		destroyBoss();	
+    	}
     }
+}
+
+function destroyBoss(){
+	Destroy(clone);  
+    score = score + 50;     
+    spawned = false;
+    bosshit = 0;
 }
 
 function GeneratePattern()
