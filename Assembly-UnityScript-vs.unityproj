@@ -52,6 +52,7 @@
      <Compile Include="Assets\Scripts\CursorController.js" />
      <Compile Include="Assets\Scripts\EnemyShootController.js" />
      <Compile Include="Assets\Scripts\EnemyShooter.js" />
+     <Compile Include="Assets\Scripts\MainScreen.js" />
      <Compile Include="Assets\Scripts\PatternControler.js" />
      <Compile Include="Assets\Scripts\ProjectileController.js" />
      <Compile Include="Assets\Scripts\RotationCotnroller.js" />
@@ -59,6 +60,7 @@
      <Compile Include="Assets\Scripts\ShipBehaviour.js" />
      <Compile Include="Assets\Scripts\ShootController.js" />
      <Compile Include="Assets\Scripts\SphereBehaviour.js" />
+     <Compile Include="Assets\Scripts\TryAgainScreen.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
