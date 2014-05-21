@@ -28,11 +28,14 @@ function Update () {
 		if(cam1.enabled == true){
 			//var point = Camera.mainCamera.ScreenToWorldPoint(mousePos)
 			cockpit.active = false;
+			//GameObject.FindGameObjectWithTag("Ship").gameObject.renderer.enabled = true;
 		}
 		else
 		{
 			//var point = Camera.mainCamera.ScreenToWorldPoint(mousePos)
 			cockpit.active = true;
+//			GameObject.FindGameObjectWithTag("Ship").gameObject.renderer.enabled = false;
+			
 		}
 	}
 	var point = Camera.mainCamera.ScreenToWorldPoint(mousePos);

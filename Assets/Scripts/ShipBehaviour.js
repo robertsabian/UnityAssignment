@@ -1,5 +1,4 @@
 ﻿public var moveSpeed : float = 10f;
-public var keyPressed : float = 0f;
 
 private var prefabTimer : float = 0f;
 
@@ -9,9 +8,27 @@ public var HealthPrefab : Rigidbody;
 public var DeathPrefab : Rigidbody;
 public var EnemyPrefab : Rigidbody;
 
-private var Health : float = 10f;
-private var Shield : float = 10f;
-public var Ammo : float = 100f;
+public var SpecialPrefab : Rigidbody;
+
+private var Health : int = 10;
+private var Shield : int = 10;
+public var Ammo : int = 100;
+public var Special : int = 2;
+
+var HpBarTexture : Texture2D;
+var ShieldBarTexture : Texture2D;
+
+var guiammo : GUIText;
+var guispecial : GUIText;
+
+var hpBarLength : float;
+var percentOfHp : float;
+
+var shieldBarLength : float;
+var percentOfShield :float;
+
+var normalColor;
+var shot : AudioClip;
 
 function Start ()
 {
@@ -20,8 +37,7 @@ function Start ()
 
 function Update ()
 {
-	Move();
-   	Jump();   	
+	Move();	
    	AmmoCounter();   
    	
    	if(Health <= 0f)
@@ -29,6 +45,12 @@ function Update ()
    		Health=0f;
    		Application.LoadLevel("Exit");
    	}
+	var barLenght = 10;
+	hpBarLength = Health*barLenght;
+	shieldBarLength = Shield*barLenght;
+	
+	guiammo.text = Ammo.ToString();
+	guispecial.text = Special.ToString();
 }
 
 function AmmoCounter()
@@ -36,13 +58,25 @@ function AmmoCounter()
 	if (Input.GetMouseButtonDown(0)){
 		if(Ammo > 0)
 		{
-			Ammo -= 1;
+		audio.PlayOneShot(shot, 1);
+		this.gameObject.renderer.material.color = Color.red;
+		yield WaitForSeconds(.5);
+		this.gameObject.renderer.material.color = Color.green;
+		Ammo -= 1;
+			
+			
 		}
-	}
-	if (Input.GetMouseButtonDown(1)){
+	}if (Input.GetMouseButtonDown(1)){
 		if(Ammo > 0)
-		{
+		{	
+			audio.PlayOneShot(shot, 1);
 			Ammo -= 10;
+		}
+	}if ((Input.GetKeyDown(KeyCode.RightAlt)) || (Input.GetKeyDown(KeyCode.LeftAlt))){
+		if(Special > 0)
+		{
+			Special -= 1;
+			SpecialStrike();
 		}
 	}
 }
@@ -69,17 +103,16 @@ function Move()
 		}
 }
 
-function Jump(){
-	    if(Input.GetKeyDown(KeyCode.Space))
-	    {
-	        //keyPressed = keyPressed + 0.1f;
-	        rigidbody.AddForce(Vector3(0,5,0),ForceMode.Impulse);
-	    }
-	    if(Input.GetKeyUp(KeyCode.Space))
-	    {
-	        //keyPressed = keyPressed + 0.1f;
-	        rigidbody.AddForce(Vector3(0,-10,0),ForceMode.Impulse);
-	    }    
+function SpecialStrike(){
+
+	var platformInstance6 : Rigidbody;
+	    platformInstance6 = Instantiate(SpecialPrefab, transform.position, transform.rotation);
+	
+	var gameObjects : GameObject[];
+    gameObjects =  GameObject.FindGameObjectsWithTag ("Enemy");
+ 
+    for(var i = 0 ; i < gameObjects.length ; i ++)
+        Destroy(gameObjects[i].gameObject);
 }
 
 function CreateVortexPrefabs(){
@@ -170,63 +203,79 @@ function CreateVortexPrefabs(){
 
 function OnTriggerEnter(other: Collider)
 {
+normalColor = this.gameObject.renderer.material.color;
     if (other.tag == "DeathCube")
     {
-       Health = 0f;
-       Shield = 0f;
+       Health = 0;
+       Shield = 0;
        
     }else if (other.tag == "HealthCube")
     {
     	if(Health < 10f)
-       	Health = Health+0.5f;
+       	Health = Health+1;
        	
     }else if (other.tag == "ShieldCube")
     {
         if(Shield < 10f)
-       	Shield = Shield+1f;
+       	Shield = Shield+1;
        	
     }else if (other.tag == "AmmoCube")
     {
         if(Ammo < 100f)
-       	Ammo = Ammo+15f;
+       	Ammo = Ammo+15;
        	
     }else if (other.tag == "Enemy")
     {
-        Health = Health - 1f;
-        Shield = Shield - 1.5f;
+        Health = Health - 2;
+        Shield = Shield - 3;
                 
 	   	if(Shield > 0)
 	   	{
-	   		Health = Health - 1f;
-        	Shield = Shield - 1.5f;
+	   		Health = Health - 2;
+        	Shield = Shield - 3;
 	   	}else{
-	   		Health = Health - 2f;
-        	Shield = 0f;
+	   		Health = Health - 4;
+        	Shield = 0;
 	   	}
         
     }else if (other.tag == "EnemyProjectile")
     {
-        Health = Health - 0.2f;
-        Shield = Shield - 0.5f;
+        Health = Health - 1;
+        Shield = Shield - 2;
         
         if(Shield > 0)
 	   	{
-	   		Health = Health - 0.2f;
-        	Shield = Shield - 0.5f;
+	   		Health = Health - 1;
+        	Shield = Shield - 2;
 	   	}else{
-	   		Health = Health - 0.5f;
-        	Shield = 0f;
+	   		Health = Health - 1;
+        	Shield = 0;
 	   	}
+	   	this.gameObject.renderer.material.color = Color.red;
+		yield WaitForSeconds(.5);
+		this.gameObject.renderer.material.color = normalColor;
     }
-//    else if (other.tag == "BossProjectile")
-//    {
-//        Health = 0f;
-//       	Shield = 0f;
-//    }
+    else if (other.tag == "BossProjectile")
+    {
+        Health = 0f;
+       	Shield = 0f;
+       	
+       	this.gameObject.renderer.material.color = Color.red;
+		yield WaitForSeconds(.5);
+		this.gameObject.renderer.material.color = normalColor;
+    }
 }
 
-function OnGUI(){
-    GUI.Label(Rect(10,10,Screen.width,Screen.height),"Health:" + Health + "");
-    GUI.Label(Rect(10,30,Screen.width,Screen.height),"Shield:" + Shield + "");
-    GUI.Label(Rect(10,50,Screen.width,Screen.height),"Ammo:" + Ammo + "");
+function OnGUI(){     
+    if (Health > 0)
+    {
+        GUI.DrawTexture(Rect(10, 10, hpBarLength, 10), HpBarTexture);
+       
+    }
+   
+    if (Shield > 0)
+    {
+        GUI.DrawTexture(Rect(10, 30, shieldBarLength, 10), ShieldBarTexture);
+       
+    }
 }

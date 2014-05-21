@@ -4,10 +4,16 @@ public var clone : Rigidbody;
 var bosshit:int = 0;
 var spawned = false;
 
-public var score : float = 0f;
+var guitext : GUIText;
+
+public var score : int = 0;
 
 var arr = new Array ();
 private var counter : int = 0;
+
+var HealthTexture : Texture2D;
+var ShieldTexture : Texture2D;
+var AmmoTexture : Texture2D;
 
 function Start () {	
 GeneratePattern();
@@ -18,13 +24,16 @@ function Update () {
 	{
 		GeneratePattern();
 		counter = 0;
-		score += 100f;
+		score += 100;
 	}
 	
-	if((score%100 == 0) && (score != 0) && (spawned == false))
+	if((score%500 == 0)	&& (score != 0) && (spawned == false))
 	{
 		SpawnBoss();
 	}
+	
+	guitext.text = score.ToString();
+	
 }
 
 function SpawnBoss()
@@ -45,36 +54,26 @@ function OnTriggerEnter(other: Collider)
     {
        	if(arr[counter] == "health")
        	{
+       		arr[counter] = "";
        		counter++;
        	}
     }else if (other.tag == "ShieldCube")
     {
        	if(arr[counter] == "shield")
        	{
+       		arr[counter] = "";
        		counter++;
        	}
     }else if (other.tag == "AmmoCube")
     {
     	if(arr[counter] == "ammo")
        	{
+       		arr[counter] = "";
        		counter++;
        	}
-    }else if (other.tag == "projectile2")
-    {	
-    	bosshit++;
-    	
-    	if(bosshit == 3){
-    		destroyBoss();	
-    	}
     }
 }
 
-function destroyBoss(){
-	Destroy(clone);  
-    score = score + 50;     
-    spawned = false;
-    bosshit = 0;
-}
 
 function GeneratePattern()
 {
@@ -92,7 +91,33 @@ function GeneratePattern()
 }
 
 function OnGUI()
-{	
-	GUI.Label(Rect(10,450,Screen.width,Screen.height),"1: " + arr[0] + "\n2: " + arr[1] + "\n3: " + arr[2] + "\n4: " + arr[3] + "");	
-	GUI.Label(Rect(500,10,Screen.width,Screen.height),"Score: " + score + "");	
+{		
+	if (arr[0] == "health")
+    GUI.DrawTexture(Rect(270, 10, 50, 50), HealthTexture);
+    else if (arr[0] == "shield")
+    GUI.DrawTexture(Rect(270, 10, 50, 50), ShieldTexture);
+    else if (arr[0] == "ammo")
+    GUI.DrawTexture(Rect(270, 10, 50, 50), AmmoTexture);
+    
+    if (arr[1] == "health")
+    GUI.DrawTexture(Rect(340, 10, 50, 50), HealthTexture);
+    else if (arr[1] == "shield")
+    GUI.DrawTexture(Rect(340, 10, 50, 50), ShieldTexture);
+    else if (arr[1] == "ammo")
+    GUI.DrawTexture(Rect(340, 10, 50, 50), AmmoTexture);
+    
+    if (arr[2] == "health")
+    GUI.DrawTexture(Rect(410, 10, 50, 50), HealthTexture);
+    else if (arr[2] == "shield")
+    GUI.DrawTexture(Rect(410, 10, 50, 50), ShieldTexture);
+    else if (arr[2] == "ammo")
+    GUI.DrawTexture(Rect(410, 10, 50, 50), AmmoTexture);
+    
+    if (arr[3] == "health")
+    GUI.DrawTexture(Rect(480, 10, 50, 50), HealthTexture);
+    else if (arr[3] == "shield")
+    GUI.DrawTexture(Rect(480, 10, 50, 50), ShieldTexture);
+    else if (arr[3] == "ammo")
+    GUI.DrawTexture(Rect(480, 10, 50, 50), AmmoTexture);
+    
 }
